@@ -49,7 +49,6 @@ std::vector<std::vector<char>> parse_input(std::string file) {
 
     while (std::getline(inFile, line)) {
         input.emplace_back(line.begin(), line.end());
-        /* std::vector<char> row(line.begin(), line.end()); */
     }
 
     inFile.close();
