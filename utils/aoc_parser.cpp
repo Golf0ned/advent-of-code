@@ -24,6 +24,23 @@ std::vector<std::vector<int>> parse_2_int_cols(std::string file) {
     return input;
 }
 
+std::vector<std::vector<char>> parse_2d_char_vec(std::string file) {
+    std::vector<std::vector<char>> input;
+
+    std::ifstream inFile(file);
+    if (!inFile.is_open()) {
+        throw std::runtime_error(file + " not found");
+    }
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        input.emplace_back(line.begin(), line.end());
+    }
+
+    inFile.close();
+    return input;
+}
+
 std::vector<std::vector<int>> parse_2d_int_vec(std::string file) {
     std::vector<std::vector<int>> input;
 
