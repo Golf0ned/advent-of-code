@@ -12,16 +12,13 @@ int part_2(std::string memory) {
     bool enabled = true;
     for (auto iter = regex_begin; iter != regex_end; iter++) {
         std::string cur = iter->str();
-        if (cur == "do()") {          // do()
+        if (cur == "do()") {           // do()
             enabled = true;
         }
         else if (cur == "don\'t()") {  // don't()
             enabled = false;
         }
-        else {                        // mul(<num1>,<num2>)
-            if (!enabled) {
-                continue;
-            }
+        else if (enabled) {            // mul(<num1>,<num2>)
             int num1 = std::stoi(cur.substr(4, cur.find(',')));
             int num2 = std::stoi(cur.substr(cur.find(',') + 1, cur.size() - 1));
             res += num1 * num2;
