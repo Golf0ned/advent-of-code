@@ -46,3 +46,17 @@ std::vector<std::vector<int>> parse_2d_int_vec(std::string file) {
     inFile.close();
     return input;
 }
+
+std::string parse_string(std::string file) {
+    std::ifstream inFile(file);
+    if (!inFile.is_open()) {
+        throw std::runtime_error(file + " not found");
+    }
+
+    std::stringstream buffer;
+    buffer << inFile.rdbuf();
+    std::string input = buffer.str();
+
+    inFile.close();
+    return input;
+}
