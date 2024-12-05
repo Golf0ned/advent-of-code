@@ -1,5 +1,8 @@
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 //
@@ -88,4 +91,44 @@ std::vector<std::vector<int>> parse_2_int_cols(std::string file) {
 
     inFile.close();
     return input;
+}
+
+// whatever the hell the day 5 slop is (day 5)
+std::pair<std::unordered_map<int, std::unordered_set<int>>, std::vector<std::vector<int>>> parse_page_ordering(std::string file) {
+    std::unordered_map<int, std::unordered_set<int>> must_precede;
+    std::vector<std::vector<int>> rows;
+
+    std::ifstream inFile(file);
+    if (!inFile.is_open()) {
+        throw std::runtime_error(file + " not found");
+    }
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        if (line.empty()) {
+            continue;
+        }
+        std::istringstream stream(line);
+        if (line.size() <= 5) {
+            int key, val;
+            stream >> key;
+            stream.ignore();
+            stream >> val;
+            must_precede[key].insert(val);
+        }
+        else {
+            std::vector<int> row;
+            int num;
+            while (stream >> num) {
+                row.push_back(num);
+                if (stream.peek() == ',') {
+                    stream.ignore();
+                }
+            }
+            rows.push_back(row);
+        }
+    }
+
+    inFile.close();
+    return make_pair(must_precede, rows);
 }
