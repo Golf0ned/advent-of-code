@@ -1,6 +1,7 @@
-#include <fstream>
 #include <iostream>
 #include <regex>
+
+#include "../utils/aoc_parser.h"
 
 int part_1(std::string memory) {
     std::regex re("mul\\(\\d+,\\d+\\)");
@@ -19,23 +20,9 @@ int part_1(std::string memory) {
     return res;
 }
 
-std::string parse_input(std::string file) {
-    std::ifstream inFile(file);
-    if (!inFile.is_open()) {
-        throw std::runtime_error(file + " not found");
-    }
-
-    std::stringstream buffer;
-    buffer << inFile.rdbuf();
-    std::string input = buffer.str();
-
-    inFile.close();
-    return input;
-}
-
 int main(int argc, char* argv[]) {
     try {
-        std::string input = parse_input(argv[1]);
+        std::string input = parse_string(argv[1]);
         int res = part_1(input);
         std::cout << res << std::endl;
         return 0;
