@@ -7,6 +7,7 @@ bool is_safe_report(const std::vector<int>& row) {
     if (row.empty()) {
         return false;
     }
+
     bool increasing = row[1] > row[0];
     for (int i = 1; i < row.size(); i++) {
         int diff = increasing ? row[i] - row[i-1] : row[i-1] - row[i];
@@ -21,19 +22,20 @@ int part_2(std::vector<std::vector<int>> input) {
     int res = 0;
     for (auto& line : input) {
         // yes, this is lazy, but the input's small enough that i don't really care
-        bool is_safe = is_safe_report(line);
-        if (!is_safe) {
-            for (int i = 0; i < line.size(); i++) {
-                std::vector<int> copy = line;
-                copy.erase(copy.begin() + i);
-                if (is_safe_report(copy)) {
-                    res++;
-                    break;
-                }
-            }
-        }
-        else {
+        
+        // no damper
+        if (is_safe_report(line)) {
             res++;
+            continue;
+        }
+        // yes damper
+        for (int i = 0; i < line.size(); i++) {
+            std::vector<int> copy = line;
+            copy.erase(copy.begin() + i);
+            if (is_safe_report(copy)) {
+                res++;
+                break;
+            }
         }
     }
     return res;

@@ -7,6 +7,7 @@ bool is_safe_report(const std::vector<int>& row) {
     if (row.empty()) {
         return false;
     }
+
     bool increasing = row[1] > row[0];
     for (int i = 1; i < row.size(); i++) {
         int diff = increasing ? row[i] - row[i-1] : row[i-1] - row[i];
