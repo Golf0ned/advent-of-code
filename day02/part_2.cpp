@@ -1,9 +1,7 @@
-#include <fstream>
 #include <iostream>
-#include <sstream>
 #include <vector>
 
-using input_type = std::vector<std::vector<int>>;
+#include "../utils/aoc_parser.h"
 
 bool is_safe_report(const std::vector<int>& row) {
     if (row.empty()) {
@@ -19,7 +17,7 @@ bool is_safe_report(const std::vector<int>& row) {
     return true;
 }
 
-int part_2(input_type input) {
+int part_2(std::vector<std::vector<int>> input) {
     int res = 0;
     for (auto& line : input) {
         // yes, this is lazy, but the input's small enough that i don't really care
@@ -41,32 +39,9 @@ int part_2(input_type input) {
     return res;
 }
 
-input_type parse_input(std::string file) {
-    std::ifstream inFile(file);
-    if (!inFile.is_open()) {
-        throw std::runtime_error(file + " not found");
-    }
-
-    std::string line;
-    input_type input(0);
-
-    while (std::getline(inFile, line)) {
-        std::istringstream stream(line);
-        std::vector<int> row;
-        int num;
-        while (stream >> num) {
-            row.push_back(num);
-        }
-        input.push_back(row);
-    }
-
-    inFile.close();
-    return input;
-}
-
 int main(int argc, char* argv[]) {
     try {
-        input_type input = parse_input(argv[1]);
+        std::vector<std::vector<int>> input = parse_2d_int_vec(argv[1]);
         int res = part_2(input);
         std::cout << res << std::endl;
         return 0;
