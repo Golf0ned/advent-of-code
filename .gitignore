@@ -1,5 +1,6 @@
 # generated input (https://adventofcode.com/about#faq_copying)
 input.txt
+!daytemplate/input.txt
 
 # precompiled headers
 *.gch
