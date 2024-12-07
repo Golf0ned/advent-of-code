@@ -132,3 +132,30 @@ std::pair<std::unordered_map<int, std::unordered_set<int>>, std::vector<std::vec
     inFile.close();
     return make_pair(must_precede, rows);
 }
+
+// bridge repair (day 7)
+std::vector<std::vector<long>> parse_bridge_repair(std::string file) {
+    std::vector<std::vector<long>> input;
+
+    std::ifstream inFile(file);
+    if (!inFile.is_open()) {
+        throw std::runtime_error(file + " not found");
+    }
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        std::vector<long> row;
+        std::istringstream stream(line);
+        long num;
+        while (stream >> num) {
+            row.push_back(num);
+            if (stream.peek() == ':') {
+                stream.ignore();
+            }
+        }
+        input.push_back(row);
+    }
+
+    inFile.close();
+    return input;
+}
